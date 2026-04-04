@@ -2,6 +2,8 @@ import { Poppins, Inter } from 'next/font/google'
 import './globals.css'
 import { AuthProvider } from '../context/AuthContext.js'
 import { Toaster } from 'react-hot-toast'
+import Navbar from '@/components/layout/Navbar'
+import Footer from '@/components/landing/Footer'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -56,8 +58,9 @@ export default function RootLayout({ children }) {
       },
     },
   }}
-/>
+/><Navbar/>
           {children}
+          <Footer/>
         </AuthProvider>
       </body>
     </html>

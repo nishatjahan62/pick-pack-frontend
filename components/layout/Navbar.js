@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useAuth } from '../../context/AuthContext.js'
 import { useRouter, usePathname } from 'next/navigation'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 import { FiLogOut, FiGrid, FiUser, FiChevronDown, FiMenu, FiX, FiShoppingBag, FiLayers, FiList, FiAlertCircle, FiInfo } from 'react-icons/fi'
 
 export default function Navbar() {
@@ -12,15 +13,17 @@ export default function Navbar() {
   const pathname = usePathname()
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [showLogoutModal, setShowLogoutModal] = useState(false) // Modal state
 
   const handleLogout = () => {
     logout()
     setDropdownOpen(false)
     setMenuOpen(false)
-    router.push('/login')
+    setShowLogoutModal(false)
+    toast.success('Logged out successfully!')
+    router.push('/') // Redirect to Home Page
   }
 
-  // Ekhane logic update kora hoyeche: Products ar About shobai dekhte pabe
   const navLinks = user ? [
     { href: '/dashboard', label: 'Dashboard', icon: <FiGrid size={16} /> },
     { href: '/products', label: 'Products', icon: <FiShoppingBag size={16} /> },
@@ -101,7 +104,7 @@ export default function Navbar() {
                       <FiList size={14} /> Activity Log
                     </Link>
 
-                    <button onClick={handleLogout}
+                    <button onClick={() => setShowLogoutModal(true)}
                       className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50 transition border-t border-gray-50">
                       <FiLogOut size={14} /> Logout
                     </button>
@@ -145,7 +148,7 @@ export default function Navbar() {
 
             <div className="pt-4 border-t border-gray-100">
               {user ? (
-                <button onClick={handleLogout} className="w-full flex items-center justify-center gap-2 bg-red-50 text-red-600 py-3 rounded-xl text-sm font-bold">
+                <button onClick={() => setShowLogoutModal(true)} className="w-full flex items-center justify-center gap-2 bg-red-50 text-red-600 py-3 rounded-xl text-sm font-bold">
                   <FiLogOut size={16} /> Logout
                 </button>
               ) : (
@@ -162,6 +165,36 @@ export default function Navbar() {
           </div>
         )}
       </nav>
+
+      {/* Logout Confirmation Modal */}
+      {showLogoutModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-2xl animate-in fade-in zoom-in duration-200">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <FiLogOut size={30} />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900">Are you sure?</h3>
+              <p className="text-sm text-gray-500 mt-2">Do you really want to logout from your account?</p>
+            </div>
+            <div className="flex gap-3 mt-6">
+              <button 
+                onClick={() => setShowLogoutModal(false)}
+                className="flex-1 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold hover:bg-gray-200 transition"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleLogout}
+                className="flex-1 px-4 py-2.5 bg-red-500 text-white rounded-xl text-sm font-semibold hover:bg-red-600 transition"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="h-[64px]" />
     </>
   )

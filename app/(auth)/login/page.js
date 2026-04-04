@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
-import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi'
+import { FiMail, FiLock, FiEye, FiEyeOff, FiShield, FiBriefcase } from 'react-icons/fi'
 import { useAuth } from '@/context/AuthContext'
 import api from '@/lib/api'
 import Input from '@/components/ui/Input'
@@ -33,10 +33,22 @@ export default function LoginPage() {
     }
   }
 
-  const fillDemo = () => {
-    setValue('email', 'demo@pickpack.com')
-    setValue('password', 'demo1234')
-    toast('Demo credentials filled!', { icon: '👤' })
+  // Admin Demo Login Function
+  const loginAsAdmin = () => {
+    setValue('email', 'admin@gmail.com')
+    setValue('password', 'admin01')
+    toast('Logging in as Admin...', { icon: '🛡️' })
+    // Auto-submit after values are set
+    setTimeout(() => handleSubmit(onSubmit)(), 500)
+  }
+
+  // Manager Demo Login Function
+  const loginAsManager = () => {
+    setValue('email', 'manager@gmail.com')
+    setValue('password', 'manager01')
+    toast('Logging in as Manager...', { icon: '💼' })
+    // Auto-submit after values are set
+    setTimeout(() => handleSubmit(onSubmit)(), 500)
   }
 
   return (
@@ -83,13 +95,34 @@ export default function LoginPage() {
             </button>
           </div>
 
-          <div className="space-y-3 pt-2">
+          <div className="space-y-4 pt-2">
+            {/* Main Login Button */}
             <Button type="submit" loading={loading} fullWidth>
               Login
             </Button>
-            <Button variant="secondary" fullWidth onClick={fillDemo} type="button">
-              Demo Login
-            </Button>
+
+            {/* Demo Button Group */}
+            <div className="flex flex-col gap-3">
+              <p className="text-xs text-gray-400 text-center font-medium uppercase tracking-wider">Try Demo Login</p>
+              <div className="grid grid-cols-2 gap-3">
+                <Button 
+                  variant="secondary" 
+                  onClick={loginAsAdmin} 
+                  type="button"
+                  className="bg-blue-50 border-blue-100 text-blue-700 hover:bg-blue-100 py-2 text-xs flex items-center justify-center"
+                >
+                  <FiShield className="mr-1" /> Admin
+                </Button>
+                <Button 
+                  variant="secondary" 
+                  onClick={loginAsManager} 
+                  type="button"
+                  className="bg-purple-50 border-purple-100 text-purple-700 hover:bg-purple-100 py-2 text-xs flex items-center justify-center"
+                >
+                  <FiBriefcase className="mr-1" /> Manager
+                </Button>
+              </div>
+            </div>
           </div>
 
         </form>
