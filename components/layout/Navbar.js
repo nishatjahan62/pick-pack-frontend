@@ -13,7 +13,7 @@ export default function Navbar() {
   const pathname = usePathname()
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [showLogoutModal, setShowLogoutModal] = useState(false) // Modal state
+  const [showLogoutModal, setShowLogoutModal] = useState(false)
 
   const handleLogout = () => {
     logout()
@@ -21,21 +21,39 @@ export default function Navbar() {
     setMenuOpen(false)
     setShowLogoutModal(false)
     toast.success('Logged out successfully!')
-    router.push('/') // Redirect to Home Page
+    router.push('/')
   }
 
-  const navLinks = user ? [
+
+  const allNavLinks = user ? [
     { href: '/dashboard', label: 'Dashboard', icon: <FiGrid size={16} /> },
     { href: '/products', label: 'Products', icon: <FiShoppingBag size={16} /> },
     { href: '/categories', label: 'Categories', icon: <FiLayers size={16} /> },
     { href: '/orders', label: 'Orders', icon: <FiList size={16} /> },
-    { href: '/restock', label: 'Restock', icon: <FiAlertCircle size={16} /> },
+
+  //  only admin or manager
+    { 
+      href: '/restock', 
+      label: 'Restock', 
+      icon: <FiAlertCircle size={16} />,
+      protected: true 
+    },
+
     { href: '/about', label: 'About', icon: <FiInfo size={16} /> },
   ] : [
     { href: '/', label: 'Home' },
     { href: '/products', label: 'Products' }, 
     { href: '/about', label: 'About' },       
   ]
+
+//  Role filter
+  const navLinks = allNavLinks.filter(link => {
+    if (link.protected) {
+      return user?.role === 'admin' || user?.role === 'manager'
+    }
+    return true
+  })
+
 
   const isActive = (href) => {
     if (href === '/') return pathname === '/'
@@ -47,14 +65,12 @@ export default function Navbar() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 py-3">
         <div className="w-full px-6 md:px-16 lg:px-24 flex items-center justify-between">
           
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-0.5 text-xl font-bold">
             <span className="text-green-600">pick</span>
             <span className="text-yellow-400">&</span>
             <span className="text-green-600">pack</span>
           </Link>
 
-          {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-6 text-sm">
             {navLinks.map((link) => (
               <Link
@@ -72,7 +88,6 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Desktop Auth Section */}
           <div className="hidden md:flex items-center gap-3">
             {user ? (
               <div className="relative">
@@ -123,13 +138,11 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
           <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-gray-600">
             {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
         </div>
 
-        {/* Mobile Menu Overlay */}
         {menuOpen && (
           <div className="md:hidden bg-white border-t border-gray-100 px-6 py-4 space-y-2 shadow-xl">
             {navLinks.map((link) => (
@@ -166,7 +179,7 @@ export default function Navbar() {
         )}
       </nav>
 
-      {/* Logout Confirmation Modal */}
+      {/* Logout Modal */}
       {showLogoutModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-2xl animate-in fade-in zoom-in duration-200">
