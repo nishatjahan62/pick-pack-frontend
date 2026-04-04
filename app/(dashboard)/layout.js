@@ -1,35 +1,21 @@
-'use client'
-
-import { useAuth } from '@/context/AuthContext'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import Sidebar from '@/components/layout/Sidebar'
+import Navbar from '@/components/layout/Navbar'
 
 export default function DashboardLayout({ children }) {
-  const { user, loading } = useAuth()
-  const router = useRouter()
-
-  useEffect(() => {
-    // Jodi loading sesh hoy ar user na thake, tobe login-e pathiye dbe
-    if (!loading && !user) {
-      router.push('/login')
-    }
-  }, [user, loading, router])
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
-      </div>
-    )
-  }
-
-  // User thaklei kebol dashboard er content dekhabe
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Tumi chaile ekhane Sidebar ba Dashboard-specific Header add korte paro */}
-      <main className="w-full">
-        {children}
-      </main>
+    <div className="flex h-screen bg-[#F8FAFC] overflow-hidden">
+      {/* Sidebar - Fixed Height and Width */}
+      <Sidebar />
+
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
+        {/* Page Container - This part will scroll */}
+        <main className="flex-1 overflow-y-auto p-6 lg:p-10">
+          <div className="max-w-[1400px] mx-auto">
+            {children}
+          </div>
+        </main>
+      </div>
     </div>
   )
 }
