@@ -114,10 +114,10 @@ export default function Navbar() {
                       <FiUser size={14} /> Profile
                     </Link>
 
-                    {/* <Link href="/activity-log" onClick={() => setDropdownOpen(false)}
+                    <Link href="/activity-log" onClick={() => setDropdownOpen(false)}
                       className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:bg-green-50 hover:text-green-600 transition">
                       <FiList size={14} /> Activity Log
-                    </Link> */}
+                    </Link>
 
                     <button onClick={() => setShowLogoutModal(true)}
                       className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50 transition border-t border-gray-50">
