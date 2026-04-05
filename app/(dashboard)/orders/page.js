@@ -7,6 +7,7 @@ import OrderForm from '@/components/orders/OrderForm'
 import Modal from '@/components/ui/Modal'
 import Button from '@/components/ui/Button'
 import { FiShoppingCart, FiPlus } from 'react-icons/fi'
+import { useAuth } from '@/context/AuthContext' // ১. AuthContext ইম্পোর্ট করুন
 
 const filters = ['', 'Pending', 'Confirmed', 'Shipped', 'Delivered', 'Cancelled']
 const filterLabels = {
@@ -19,6 +20,9 @@ const filterLabels = {
 }
 
 export default function OrdersPage() {
+  const { user } = useAuth() // ২. ইউজার ডাটা নিন
+  const isAdmin = user?.role === 'admin' || user?.role === 'manager' // ৩. রোল চেক করুন
+
   const [addModal, setAddModal] = useState(false)
   const [refreshKey, setRefreshKey] = useState(0)
   const [statusFilter, setStatusFilter] = useState('')
@@ -32,7 +36,6 @@ export default function OrdersPage() {
     >
       <div className="max-w-7xl mx-auto">
         
-        {/* === উপরের অংশ (Category Page এর মতো ডিজাইন) === */}
         <div className="flex flex-col items-center text-center mb-10">
           <motion.div 
             initial={{ y: -20 }}
@@ -41,20 +44,26 @@ export default function OrdersPage() {
           >
             <FiShoppingCart size={28} className="text-green-600" />
           </motion.div>
+
+          {/* ৪. কন্ডিশনাল টাইটেল */}
           <h1 className="text-3xl md:text-4xl font-extrabold text-green-600 tracking-tight">
-            Customer Orders
+            {isAdmin ? 'Customer Orders' : 'My Orders'}
           </h1>
+
+          {/* ৫. কন্ডিশনাল সাব-টেক্সট */}
           <p className="text-gray-500 text-sm mt-2 max-w-md">
-            Track and manage your sales pipeline and customer order fulfillment effectively.
+            {isAdmin 
+              ? 'Track and manage your sales pipeline and customer order fulfillment effectively.' 
+              : 'View your order history and track the status of your current purchases.'}
           </p>
         </div>
 
-        {/* Filter pills — যা ছিল তাই আছে */}
+        {/* Filter pills */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="flex items-center gap-2 flex-wrap mb-6 justify-center" // Centered for better look
+          className="flex items-center gap-2 flex-wrap mb-6 justify-center"
         >
           {filters.map((f) => (
             <button
@@ -71,7 +80,7 @@ export default function OrdersPage() {
           ))}
         </motion.div>
 
-        {/* Table Container — rounded design updated to match categories */}
+        {/* Table Container */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -81,7 +90,6 @@ export default function OrdersPage() {
           <OrderTable refreshKey={refreshKey} statusFilter={statusFilter} />
         </motion.div>
 
-        {/* === বাটনটি এখন নিচে এবং মাঝখানে === */}
         <div className='flex justify-center items-center mt-8'>
           <motion.div 
             whileHover={{ scale: 1.05 }} 

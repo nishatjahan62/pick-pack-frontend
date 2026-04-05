@@ -9,20 +9,23 @@ import {
   FiRefreshCw, FiLogOut, FiX, FiInfo, FiChevronLeft, FiChevronRight
 } from 'react-icons/fi'
 
-const navLinks = [
-  { href: '/dashboard', label: 'Dashboard', icon: FiGrid },
-  { href: '/products', label: 'Products', icon: FiPackage },
-  { href: '/categories', label: 'Categories', icon: FiLayers },
-  { href: '/orders', label: 'Orders', icon: FiShoppingCart },
-  { href: '/restock', label: 'Restock', icon: FiRefreshCw },
-  { href: '/#about', label: 'About', icon: FiInfo },
-]
+
+
 
 export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }) {
   const pathname = usePathname()
   const router = useRouter()
   const { user, logout } = useAuth()
-
+  const navLinks = [
+    { href: '/dashboard', label: 'Dashboard', icon: FiGrid },
+    { href: '/products', label: 'Products', icon: FiPackage },
+    { href: '/categories', label: 'Categories', icon: FiLayers },
+    { href: '/orders', label: 'Orders', icon: FiShoppingCart },
+    ...(user?.role === 'admin' || user?.role === 'manager'
+      ? [{ href: '/restock', label: 'Restock', icon: FiRefreshCw }]
+      : []),
+    { href: '/#about', label: 'About', icon: FiInfo },
+  ]
   const handleLogout = () => {
     logout()
     router.push('/login')

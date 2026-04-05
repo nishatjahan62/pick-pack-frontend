@@ -1,4 +1,5 @@
 'use client'
+
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/context/AuthContext'
 import api from '@/lib/api'
@@ -14,32 +15,39 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-
-        const res = await api.get('/admin/stats')     
-        
-        setData(res.data.data)   
-      } catch (err) { 
-        console.error("Dashboard fetch error:", err) 
-      } finally { 
-        setLoading(false) 
+        const res = await api.get('/dashboard')
+        setData(res.data.data)
+      } catch (err) {
+        console.error('Dashboard fetch error:', err)
+      } finally {
+        setLoading(false)
       }
     }
     fetchData()
   }, [])
 
-  if (loading) return <div className="flex h-[70vh] justify-center items-center"><Loader size="lg" /></div>
+  if (loading) return (
+    <div className="flex h-[70vh] justify-center items-center">
+      <Loader size="lg" />
+    </div>
+  )
 
   return (
-    <div className="p-6 lg:p-10">
+    <div className="p-2 lg:p-4">
       {data?.stats ? (
-        user?.role === 'admin' ? (
-          <AdminDashboard 
-            stats={data.stats} 
-            revenue={data.revenue || []} 
-            logs={data.logs || []}       
+        data.type === 'admin' ? (
+          <AdminDashboard
+            stats={data.stats}
+            recentProducts={data.recentProducts || []}
+            recentActivity={data.recentActivity || []}
+            revenue={data.revenue} // এটা নিশ্চিত করুন
+          logs={data.logs}       // এটা নিশ্চিত করুন
           />
         ) : (
-          <UserDashboard stats={data.stats} user={user} />
+          <UserDashboard stats={data.stats} 
+  user={user} 
+  logs={data.logs} 
+  chartData={data.chartData} />
         )
       ) : (
         <p className="text-center text-gray-500 py-10">No dashboard data found</p>
