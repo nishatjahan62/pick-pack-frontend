@@ -6,16 +6,7 @@
 
 ## 🌐 Live Demo
 
-| Service | URL |
-|---|---|
-| Frontend | `https://pick-pack-frontend.vercel.app` |
-| Backend API | `https://pick-pack-backend.onrender.com` |
-
-**Demo Credentials:**
-```
-Email:    demo@pickpack.com
-Password: demo1234
-```
+### Frontend | [pick-pack-frontend.vercel.app](https://pick-pack-frontend.vercel.app)
 
 ---
 
