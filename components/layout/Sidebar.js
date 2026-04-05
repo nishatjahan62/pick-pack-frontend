@@ -1,68 +1,134 @@
 'use client'
+
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { FiGrid, FiBox, FiShoppingBag, FiLayers, FiRefreshCw, FiUser, FiUsers } from 'react-icons/fi'
-import { useAuth } from '@/context/AuthContext' 
+import { usePathname, useRouter } from 'next/navigation'
+import { useAuth } from '@/context/AuthContext'
+import { motion } from 'framer-motion'
+import {
+  FiGrid, FiPackage, FiLayers, FiShoppingCart,
+  FiRefreshCw, FiLogOut, FiX, FiInfo, FiChevronLeft, FiChevronRight
+} from 'react-icons/fi'
 
-export default function Sidebar() {
+const navLinks = [
+  { href: '/dashboard', label: 'Dashboard', icon: FiGrid },
+  { href: '/products', label: 'Products', icon: FiPackage },
+  { href: '/categories', label: 'Categories', icon: FiLayers },
+  { href: '/orders', label: 'Orders', icon: FiShoppingCart },
+  { href: '/restock', label: 'Restock', icon: FiRefreshCw },
+  { href: '/#about', label: 'About', icon: FiInfo },
+]
+
+export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }) {
   const pathname = usePathname()
-  const { user } = useAuth() 
+  const router = useRouter()
+  const { user, logout } = useAuth()
 
-  const menuItems = [
-    { name: 'Dashboard', path: '/dashboard', icon: FiGrid, role: 'all' },
-    { name: 'Products', path: '/products', icon: FiBox, role: 'all' },
-    { name: 'Orders', path: '/orders', icon: FiShoppingBag, role: 'all' },
-    { name: 'Categories', path: '/categories', icon: FiLayers, role: 'all' },
-    { name: 'Restock', path: '/restock', icon: FiRefreshCw, role: 'all' },
-    { name: 'User Management', path: '/user', icon: FiUsers, role: 'admin' }, // Only admin
-    { name: 'Profile', path: '/profile', icon: FiUser, role: 'all' },
-  ]
+  const handleLogout = () => {
+    logout()
+    router.push('/login')
+  }
 
   return (
-    <aside className="w-72 bg-white h-screen border-r border-gray-100 p-6 flex flex-col sticky top-0">
-      <div className="p-4 mb-8">
-        <Link href="/" className="flex items-center gap-1 text-2xl font-black italic tracking-tighter">
-          <span className="text-green-600">pick</span>
-          <span className="text-yellow-400">&</span>
-          <span className="text-green-600">pack</span>
-        </Link>
-      </div>
-      
-      <nav className="flex-1 space-y-2">
-        {menuItems.map((item) => {
-          // Role check
-          if (item.role === 'admin' && user?.role !== 'admin') return null
+    <div className={`${collapsed ? 'w-[72px]' : 'w-64'} h-full bg-[#052e16] flex flex-col py-5 transition-all duration-300 overflow-hidden`}>
 
-          const isActive = pathname === item.path
+      {/* Logo + buttons */}
+      <div className="flex items-center justify-between px-4 mb-6">
+        {!collapsed && (
+          <Link href="/" className="text-xl font-bold">
+            <span className="text-green-400">pick</span>
+            <span className="text-yellow-300">&</span>
+            <span className="text-green-400">pack</span>
+          </Link>
+        )}
+
+        {/* Mobile close */}
+        {onClose && (
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={onClose}
+            className="lg:hidden text-green-300 hover:text-white transition p-1 ml-auto"
+          >
+            <FiX size={20} />
+          </motion.button>
+        )}
+
+        {/* Desktop collapse toggle */}
+        {onToggleCollapse && (
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={onToggleCollapse}
+            className="hidden lg:flex items-center justify-center w-7 h-7 rounded-lg text-green-300 hover:text-white hover:bg-green-800/40 transition ml-auto"
+          >
+            {collapsed ? <FiChevronRight size={16} /> : <FiChevronLeft size={16} />}
+          </motion.button>
+        )}
+      </div>
+
+      {/* User info */}
+      {user && !collapsed && (
+        <div className="flex items-center gap-3 mx-3 px-3 py-3 mb-4 bg-green-900/30 rounded-xl border border-green-800/30">
+          <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-xs flex-shrink-0">
+            {user.name?.charAt(0).toUpperCase()}
+          </div>
+          <div className="overflow-hidden">
+            <p className="text-white text-sm font-medium truncate">{user.name}</p>
+            <p className="text-green-400 text-xs capitalize">{user.role}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Collapsed avatar */}
+      {user && collapsed && (
+        <div className="flex justify-center mb-4">
+          <div className="w-9 h-9 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-sm">
+            {user.name?.charAt(0).toUpperCase()}
+          </div>
+        </div>
+      )}
+
+      {/* Nav Links */}
+      <nav className="flex-1 space-y-1 px-2">
+        {navLinks.map(({ href, label, icon: Icon }) => {
+          const isActive = pathname === href || pathname.startsWith(href + '/')
           return (
-            <Link 
-              key={item.path} 
-              href={item.path}
-              className={`flex items-center gap-4 px-5 py-4 rounded-2xl font-bold transition-all duration-300 ${
-                isActive 
-                ? 'bg-green-600 text-white shadow-lg shadow-green-100 scale-[1.02]' 
-                : 'text-gray-400 hover:bg-green-50 hover:text-green-600'
-              }`}
+            <Link
+              key={href}
+              href={href}
+              onClick={onClose}
+              title={collapsed ? label : undefined}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                isActive
+                  ? 'bg-green-500 text-white shadow-lg shadow-green-500/20'
+                  : 'text-green-200 hover:bg-green-800/40 hover:text-white'
+              } ${collapsed ? 'justify-center' : ''}`}
             >
-              <item.icon size={22} className={isActive ? 'text-white' : 'text-gray-300'} />
-              <span className="text-[15px]">{item.name}</span>
+              <Icon size={18} className="flex-shrink-0" />
+              {!collapsed && (
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.1 }}
+                >
+                  {label}
+                </motion.span>
+              )}
             </Link>
           )
         })}
       </nav>
 
-      {/* Bottom Profile Status */}
-      <div className="mt-auto p-4 bg-gray-50 rounded-3xl border border-gray-100">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-green-600 text-white flex items-center justify-center font-black">
-            {user?.name?.charAt(0).toUpperCase() || 'U'}
-          </div>
-          <div className="overflow-hidden">
-            <p className="text-sm font-black text-gray-800 truncate">{user?.name || 'User'}</p>
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{user?.role || 'Guest'}</p>
-          </div>
-        </div>
+      {/* Logout */}
+      <div className="px-2 mt-2">
+        <button
+          onClick={handleLogout}
+          title={collapsed ? 'Logout' : undefined}
+          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-green-300 hover:bg-red-500/20 hover:text-red-300 transition-all ${collapsed ? 'justify-center' : ''}`}
+        >
+          <FiLogOut size={18} className="flex-shrink-0" />
+          {!collapsed && <span>Logout</span>}
+        </button>
       </div>
-    </aside>
+
+    </div>
   )
 }

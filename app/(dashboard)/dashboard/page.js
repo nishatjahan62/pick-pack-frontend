@@ -14,10 +14,10 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // ✅ এখানে route ঠিক করো
-        const res = await api.get('/admin/stats')     // ← এটা পরিবর্তন করো
+
+        const res = await api.get('/admin/stats')     
         
-        setData(res.data.data)   // অথবা res.data যদি ApiResponse স্ট্রাকচার হয়
+        setData(res.data.data)   
       } catch (err) { 
         console.error("Dashboard fetch error:", err) 
       } finally { 
