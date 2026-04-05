@@ -197,7 +197,7 @@ export default function Hero() {
               className="rounded-xl"
             >
               <Link
-                href="/register"
+                href="/signup"
                 className="relative overflow-hidden flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 text-white font-semibold px-5 py-3.5 rounded-xl text-sm transition-all duration-300 hover:scale-105 group w-full"
               >
                 <motion.span animate={{ x: [0, 3, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}>🚀</motion.span>
