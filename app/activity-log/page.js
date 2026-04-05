@@ -150,7 +150,7 @@ export default function ActivityLogPage() {
               <button 
                 onClick={() => paginate(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className={`p-2 rounded-lg border transition ${currentPage === totalPages ? 'text-gray-300 border-gray-100 cursor-not-allowed' : 'text-gray-600 border-gray-200 hover:border-green-500 hover:text-green-500'}`}
+                className={`p-2 rounded-lg border transition ${currentPage === totalPages ? 'text-gray-300 border-gray-100 cursor-not-allowed' : 'text-gray-600 border-gray-200 hover:border-green-500 hover:text-green-600'}`}
               >
                 <FiChevronRight size={18} />
               </button>
