@@ -46,12 +46,16 @@ export default function ProductTable({ canManage, refreshKey }) {
   }, [search, statusFilter])
 
   // Filter logic
-  const filtered = products.filter(p => {
-    const matchSearch = p.name.toLowerCase().includes(search.toLowerCase()) ||
-      p.category?.name?.toLowerCase().includes(search.toLowerCase())
-    const matchStatus = statusFilter ? p.status === statusFilter : true
-    return matchSearch && matchStatus
-  })
+ const filtered = products.filter(p => {
+ 
+  const matchSearch = p.name.toLowerCase().includes(search.toLowerCase()) ||
+    p.category?.name?.toLowerCase().includes(search.toLowerCase());
+  const matchStatus = statusFilter 
+    ? p.status.toLowerCase() === statusFilter.toLowerCase() 
+    : true;
+
+  return matchSearch && matchStatus;
+});
 
   // Pagination
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE)
@@ -111,8 +115,8 @@ export default function ProductTable({ canManage, refreshKey }) {
           className="text-sm border border-gray-200 rounded-xl px-3 py-2 outline-none focus:border-green-400 bg-white text-gray-600 transition"
         >
           <option value="">All Status</option>
-          <option value="Active">Active</option>
-          <option value="Out of Stock">Out of Stock</option>
+          <option value="Active">active</option>
+          <option value="Out of Stock">out of stoke</option>
         </select>
       </div>
 
