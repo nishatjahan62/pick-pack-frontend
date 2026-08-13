@@ -14,7 +14,7 @@ export default function OrderForm({ onSuccess }) {
   const [customerName, setCustomerName] = useState('')
   const [items, setItems] = useState([{ product: '', quantity: 1 }])
 
-  // ১. সব প্রোডাক্ট ফেচ করা (যাতে ড্রপডাউনে দেখানো যায়)
+  // ১. সব প্রোডাক্ট ফেচ করা (যাতে ড্রপডাউনে দেখানো যায়)
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -72,10 +72,10 @@ export default function OrderForm({ onSuccess }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 p-2">
+    <form onSubmit={handleSubmit} className="space-y-6 p-2 bg-white dark:bg-gray-900 rounded-2xl">
       {/* Customer Info Section */}
-      <div className="bg-green-50/50 p-5 rounded-2xl border border-green-100">
-        <label className="block text-sm font-bold text-green-700 mb-2 flex items-center gap-2">
+      <div className="bg-green-50/50 dark:bg-green-950/20 p-5 rounded-2xl border border-green-100 dark:border-green-900/40">
+        <label className="block text-sm font-bold text-green-700 dark:text-green-400 mb-2 flex items-center gap-2">
           <FiUser /> Customer Name
         </label>
         <input
@@ -84,20 +84,20 @@ export default function OrderForm({ onSuccess }) {
           value={customerName}
           onChange={(e) => setCustomerName(e.target.value)}
           placeholder="Enter client name"
-          className="w-full px-4 py-3 rounded-xl border-none focus:ring-2 focus:ring-green-500 shadow-sm"
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 outline-none shadow-sm transition"
         />
       </div>
 
       {/* Items Selection Section */}
       <div className="space-y-4">
         <div className="flex justify-between items-center px-2">
-          <h3 className="font-bold text-gray-700 flex items-center gap-2">
-            <FiShoppingCart className="text-green-600" /> Selected Items
+          <h3 className="font-bold text-gray-700 dark:text-gray-200 flex items-center gap-2">
+            <FiShoppingCart className="text-green-600 dark:text-green-400" /> Selected Items
           </h3>
           <button 
             type="button" 
             onClick={addItemRow}
-            className="text-xs font-bold text-green-600 hover:text-green-700 flex items-center gap-1"
+            className="text-xs font-bold text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 flex items-center gap-1"
           >
             <FiPlus /> Add Another
           </button>
@@ -110,21 +110,21 @@ export default function OrderForm({ onSuccess }) {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="flex flex-wrap md:flex-nowrap gap-3 items-end bg-white p-4 rounded-2xl border border-gray-100 shadow-sm"
+              className="flex flex-wrap md:flex-nowrap gap-3 items-end bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm"
             >
               {/* Product Dropdown */}
               <div className="flex-1 min-w-[200px]">
-                <label className="text-[10px] uppercase font-bold text-gray-400 ml-1">Product</label>
+                <label className="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 ml-1">Product</label>
                 <select
                   required
                   value={item.product}
                   onChange={(e) => handleItemChange(index, 'product', e.target.value)}
-                  className="w-full mt-1 px-3 py-2.5 rounded-lg bg-gray-50 border-none focus:ring-2 focus:ring-green-500 text-sm"
+                  className="w-full mt-1 px-3 py-2.5 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 outline-none text-sm text-gray-900 dark:text-gray-100 transition"
                 >
-                  <option value="">Select a product</option>
+                  <option value="" className="bg-white dark:bg-gray-900 text-gray-400">Select a product</option>
                   {products.map(p => (
-                    <option key={p._id} value={p._id} disabled={p.stock <= 0}>
-                      {p.name} — ${p.price} ({p.stock} in stock)
+                    <option key={p._id} value={p._id} disabled={p.stock <= 0} className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+                      {p.name} — ৳{p.price} ({p.stock} in stock)
                     </option>
                   ))}
                 </select>
@@ -132,14 +132,14 @@ export default function OrderForm({ onSuccess }) {
 
               {/* Quantity Input */}
               <div className="w-24">
-                <label className="text-[10px] uppercase font-bold text-gray-400 ml-1">Qty</label>
+                <label className="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500 ml-1">Qty</label>
                 <input
                   required
                   type="number"
                   min="1"
                   value={item.quantity}
                   onChange={(e) => handleItemChange(index, 'quantity', parseInt(e.target.value))}
-                  className="w-full mt-1 px-3 py-2.5 rounded-lg bg-gray-50 border-none focus:ring-2 focus:ring-green-500 text-sm"
+                  className="w-full mt-1 px-3 py-2.5 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 outline-none text-sm text-gray-900 dark:text-gray-100 transition"
                 />
               </div>
 
@@ -147,7 +147,7 @@ export default function OrderForm({ onSuccess }) {
               <button
                 type="button"
                 onClick={() => removeItemRow(index)}
-                className="p-3 text-red-400 hover:bg-red-50 rounded-lg transition-colors mb-0.5"
+                className="p-3 text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors mb-0.5"
               >
                 <FiTrash2 size={18} />
               </button>
@@ -157,16 +157,16 @@ export default function OrderForm({ onSuccess }) {
       </div>
 
       {/* Footer: Total & Submit */}
-      <div className="pt-6 border-t border-dashed border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div className="pt-6 border-t border-dashed border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
         <div className="text-center md:text-left">
-          <p className="text-gray-400 text-xs uppercase font-bold tracking-widest">Total Amount</p>
-          <p className="text-3xl font-black text-green-600">${calculateTotal().toFixed(2)}</p>
+          <p className="text-gray-400 dark:text-gray-500 text-xs uppercase font-bold tracking-widest">Total Amount</p>
+          <p className="text-3xl font-black text-green-600 dark:text-green-400">৳{calculateTotal().toFixed(2)}</p>
         </div>
 
         <Button 
           type="submit" 
           disabled={loading}
-          className="w-full md:w-auto px-12 py-4 rounded-2xl shadow-xl shadow-green-100"
+          className="w-full md:w-auto px-12 py-4 rounded-2xl shadow-xl shadow-green-100 dark:shadow-none"
         >
           {loading ? <Loader /> : 'Confirm Order'}
         </Button>

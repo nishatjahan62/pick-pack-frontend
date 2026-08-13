@@ -3,13 +3,13 @@ import { FiArrowRight } from 'react-icons/fi'
 
 export default function CTA() {
   return (
-    <section className="py-20 px-6 bg-gray-50">
+    <section className="py-20 px-6 bg-gray-50 dark:bg-gray-700 transition-colors">
       <div className="max-w-4xl mx-auto">
-        <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-3xl p-12 text-center relative overflow-hidden">
+        <div className="bg-gradient-to-r from-green-500 to-green-600 dark:from-gray-600 dark:to-gray-700 rounded-3xl p-12 text-center relative overflow-hidden shadow-sm">
 
           {/* Background decoration */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
           <div className="relative z-10">
             <div className="inline-block bg-white/20 text-white text-xs font-medium px-3 py-1.5 rounded-full mb-6">
@@ -27,7 +27,7 @@ export default function CTA() {
             <div className="flex items-center justify-center gap-4 flex-wrap">
               <Link
                 href="/signup"
-                className="bg-white text-green-600 hover:bg-green-50 font-semibold px-8 py-3.5 rounded-xl text-sm transition flex items-center gap-2 shadow-lg"
+                className="bg-white dark:bg-gray-600 text-green-600 hover:bg-green-100 font-semibold px-8 py-3.5 rounded-xl text-sm transition flex items-center gap-2 shadow-lg"
               >
                 Create Free Account <FiArrowRight size={16} />
               </Link>

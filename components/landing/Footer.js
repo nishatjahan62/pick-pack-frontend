@@ -7,7 +7,7 @@ import { FiGrid, FiShoppingBag, FiLayers, FiList, FiAlertCircle, FiInfo, FiHome,
 import { FaGithub, FaLinkedinIn, FaFacebookF, FaXTwitter } from 'react-icons/fa6'
 
 const socialLinks = [
-  { label: 'GitHub',     href: 'https://github.com/yourusername',     Icon: FaGithub,     bg: 'bg-[#1a1a1a]' },
+  { label: 'GitHub',     href: 'https://github.com/yourusername',     Icon: FaGithub,    bg: 'bg-[#1a1a1a]' },
   { label: 'LinkedIn',   href: 'https://linkedin.com/in/yourusername', Icon: FaLinkedinIn, bg: 'bg-[#0077b5]' },
   { label: 'X (Twitter)',href: 'https://twitter.com/yourusername',     Icon: FaXTwitter,   bg: 'bg-[#000]' },
   { label: 'Facebook',   href: 'https://facebook.com/yourusername',    Icon: FaFacebookF,  bg: 'bg-[#1877f2]' },
@@ -43,7 +43,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-gray-50 border-t border-[#d4e8c2] pt-12 pb-6 px-6">
+    <footer className="bg-gray-50 dark:bg-gray-950 border-t border-[#d4e8c2] dark:border-gray-800 pt-12 pb-6 px-6 transition-colors">
       <div className="w-full px-6 md:px-16 lg:px-24 mx-auto">
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
@@ -51,18 +51,18 @@ export default function Footer() {
           {/* Col 1 — Logo */}
           <div>
             <Link href="/" className="flex items-center gap-0.5 text-xl lg:text-2xl font-bold mb-1">
-              <span className="text-green-800">pick</span>
-              <span className="text-yellow-600">&</span>
-              <span className="text-green-800">pack</span>
+              <span className="text-green-800 dark:text-green-400">pick</span>
+              <span className="text-yellow-600 dark:text-yellow-500">&</span>
+              <span className="text-green-800 dark:text-green-400">pack</span>
             </Link>
-            <p className="text-xs text-[#6b7c5e] leading-relaxed mt-2">
+            <p className="text-xs text-[#6b7c5e] dark:text-gray-400 leading-relaxed mt-2">
               Smart inventory &<br />order management
             </p>
           </div>
 
           {/* Col 2 — Nav Links */}
           <div>
-            <p className="text-[10px] uppercase tracking-widest text-[#8fa07a] font-medium mb-3">
+            <p className="text-[10px] uppercase tracking-widest text-[#8fa07a] dark:text-gray-500 font-medium mb-3">
               Navigation
             </p>
             <div className="flex flex-col gap-0.5">
@@ -74,8 +74,8 @@ export default function Footer() {
                     href={link.href}
                     className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all w-fit ${
                       isActive(link.href)
-                        ? 'bg-[#ddf0c8] text-green-800 font-semibold'
-                        : 'text-[#5a6e4a] hover:bg-[#e8f4dc] hover:text-green-800'
+                        ? 'bg-[#ddf0c8] dark:bg-green-950/60 text-green-800 dark:text-green-300 font-semibold'
+                        : 'text-[#5a6e4a] dark:text-gray-400 hover:bg-[#e8f4dc] dark:hover:bg-gray-900 hover:text-green-800 dark:hover:text-green-300'
                     }`}
                   >
                     <Icon size={14} />
@@ -88,7 +88,7 @@ export default function Footer() {
 
           {/* Col 3 — Social Media */}
           <div>
-            <p className="text-[10px] uppercase tracking-widest text-[#8fa07a] font-medium mb-3">
+            <p className="text-[10px] uppercase tracking-widest text-[#8fa07a] dark:text-gray-500 font-medium mb-3">
               Find us online
             </p>
             <div className="flex flex-col gap-2">
@@ -98,7 +98,7 @@ export default function Footer() {
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-3 py-2 rounded-xl border border-[#cde0b4] bg-white text-[#4a6035] text-sm font-medium hover:bg-[#e8f4dc] hover:border-[#a8d080] hover:text-green-800 transition-all"
+                  className="flex items-center gap-3 px-3 py-2 rounded-xl border border-[#cde0b4] dark:border-gray-800 bg-white dark:bg-gray-900 text-[#4a6035] dark:text-gray-300 text-sm font-medium hover:bg-[#e8f4dc] dark:hover:bg-gray-800 hover:border-[#a8d080] dark:hover:border-gray-700 hover:text-green-800 dark:hover:text-green-300 transition-all"
                 >
                   <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-white ${s.bg} flex-shrink-0`}>
                     <s.Icon size={13} />
@@ -112,11 +112,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-[#cde0b4] pt-5 flex items-center justify-between flex-wrap gap-3">
-          <p className="text-xs text-[#8fa07a]">
+        <div className="border-t border-[#cde0b4] dark:border-gray-800 pt-5 flex items-center justify-between flex-wrap gap-3">
+          <p className="text-xs text-[#8fa07a] dark:text-gray-500">
             © {new Date().getFullYear()} pick&pack · All rights reserved
           </p>
-          <span className="inline-flex items-center gap-2 text-xs font-medium text-green-700 bg-[#e2f5ce] border border-[#bde099] rounded-full px-3 py-1.5">
+          <span className="inline-flex items-center gap-2 text-xs font-medium text-green-700 dark:text-green-400 bg-[#e2f5ce] dark:bg-green-950/40 border border-[#bde099] dark:border-green-900/40 rounded-full px-3 py-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-green-500 inline-block" />
             All systems operational
           </span>
