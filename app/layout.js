@@ -1,9 +1,11 @@
 import { Poppins, Inter } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import { AuthProvider } from '../context/AuthContext.js'
 import { Toaster } from 'react-hot-toast'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/landing/Footer'
+import { ThemeProvider } from '@/context/ThemeContext'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -24,44 +26,47 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} ${inter.variable} font-inter`}>
-        <AuthProvider>
-               <Toaster
-  position="top-right"
-  toastOptions={{
-    duration: 3000,
-    style: {
-      borderRadius: '12px',
-      fontSize: '14px',
-    },
-    success: {
-      style: {
-        border: '1px solid #bbf7d0',
-        background: '#f0fdf4',
-        color: '#15803d',
-      },
-      iconTheme: {
-        primary: '#22c55e',
-        secondary: '#fff',
-      },
-    },
-    error: {
-      style: {
-        border: '1px solid #fecaca',
-        background: '#fef2f2',
-        color: '#dc2626',
-      },
-      iconTheme: {
-        primary: '#ef4444',
-        secondary: '#fff',
-      },
-    },
-  }}
-/><Navbar/>
-          {children}
-          <Footer/>
-        </AuthProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${poppins.variable} ${inter.variable} font-inter bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors`}>
+        <ThemeProvider>
+          <AuthProvider>
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                duration: 3000,
+                style: {
+                  borderRadius: '12px',
+                  fontSize: '14px',
+                },
+                success: {
+                  style: {
+                    border: '1px solid #bbf7d0',
+                    background: '#f0fdf4',
+                    color: '#15803d',
+                  },
+                  iconTheme: {
+                    primary: '#22c55e',
+                    secondary: '#fff',
+                  },
+                },
+                error: {
+                  style: {
+                    border: '1px solid #fecaca',
+                    background: '#fef2f2',
+                    color: '#dc2626',
+                  },
+                  iconTheme: {
+                    primary: '#ef4444',
+                    secondary: '#fff',
+                  },
+                },
+              }}
+            />
+            <Navbar />
+            {children}
+            <Footer />
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
-import { FiMail, FiLock, FiEye, FiEyeOff, FiShield, FiBriefcase } from 'react-icons/fi'
+import { FiMail, FiLock, FiEye, FiEyeOff, FiShield, FiBriefcase, FiUser } from 'react-icons/fi'
 import { useAuth } from '@/context/AuthContext'
 import api from '@/lib/api'
 import Input from '@/components/ui/Input'
@@ -48,6 +48,13 @@ export default function LoginPage() {
     setValue('password', 'manager01')
     toast('Logging in as Manager...', { icon: '💼' })
     // Auto-submit after values are set
+    setTimeout(() => handleSubmit(onSubmit)(), 500)
+  }
+  // User Demo Login Function
+   const loginAsUser = () => {
+    setValue('email', 'user@gmail.com')
+    setValue('password', 'user01')
+    toast('Logging in as User...', { icon: '👤' })
     setTimeout(() => handleSubmit(onSubmit)(), 500)
   }
 
@@ -104,7 +111,7 @@ export default function LoginPage() {
             {/* Demo Button Group */}
             <div className="flex flex-col gap-3">
               <p className="text-xs text-gray-400 text-center font-medium uppercase tracking-wider">Try Demo Login</p>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-3 gap-3">
                 <Button 
                   variant="secondary" 
                   onClick={loginAsAdmin} 
@@ -120,6 +127,14 @@ export default function LoginPage() {
                   className="bg-purple-50 border-purple-100 text-purple-700 hover:bg-purple-100 py-2 text-xs flex items-center justify-center"
                 >
                   <FiBriefcase className="mr-1" /> Manager
+                </Button>
+                 <Button 
+                  variant="secondary" 
+                  onClick={loginAsUser} 
+                  type="button"
+                  className="bg-purple-50 border-purple-100 text-purple-700 hover:bg-purple-100 py-2 text-xs flex items-center justify-center"
+                >
+                  <FiUser className="mr-1" /> User
                 </Button>
               </div>
             </div>

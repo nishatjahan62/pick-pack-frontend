@@ -21,3 +21,27 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-poppins), sans-serif;
 }
+@theme {
+  --color-primary: #22c55e;
+  --color-secondary: #fde047;
+}
+/* dark theme */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Light mode (default) */
+:root {
+  --background: #ffffff;
+  --foreground: #1c1c1d;
+}
+
+/* Dark mode */
+.dark {
+  --background: #1c1c1d;
+  --foreground: #f1f5f9;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
