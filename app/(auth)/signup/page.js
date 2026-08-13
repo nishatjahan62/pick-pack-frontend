@@ -34,17 +34,17 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-700 px-4 transition-colors">
+      <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-8 transition-colors">
 
         {/* Logo */}
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold">
-            <span className="text-green-600">pick</span>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            <span className="text-green-600 dark:text-green-400">pick</span>
             <span className="text-yellow-400">&</span>
-            <span className="text-green-600">pack</span>
+            <span className="text-green-600 dark:text-green-400">pack</span>
           </h1>
-          <p className="text-gray-500 text-sm mt-1">Create your account</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Create your account</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -83,7 +83,7 @@ export default function SignupPage() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-9 text-gray-400 hover:text-gray-600 transition"
+              className="absolute right-3 top-9 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition"
             >
               {showPassword ? <FiEyeOff size={16} /> : <FiEye size={16} />}
             </button>
@@ -97,9 +97,9 @@ export default function SignupPage() {
 
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
           Already have an account?{' '}
-          <Link href="/login" className="text-green-600 font-medium hover:underline">
+          <Link href="/login" className="text-green-600 dark:text-green-400 font-medium hover:underline">
             Login
           </Link>
         </p>

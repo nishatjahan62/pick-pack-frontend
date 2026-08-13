@@ -153,7 +153,7 @@ export default function Hero() {
           {/* Badge */}
           <motion.div
             variants={fadeUp}
-            className="inline-flex items-center gap-2 bg-yellow-500/10 dark:bg-yellow-400/15 border border-yellow-500/30 dark:border-yellow-400/40 text-yellow-700 dark:text-yellow-300 text-xs font-semibold px-4 py-2 rounded-full mb-6 tracking-wide uppercase"
+            className="inline-flex items-center gap-2 bg-yellow-500/10 dark:bg-yellow-400/15 border border-yellow-500/30 dark:border-yellow-400/40 text-white dark:text-yellow-300 text-xs font-semibold px-4 py-2 rounded-full mb-6 tracking-wide uppercase"
           >
             <span className="w-2 h-2 rounded-full bg-yellow-500 dark:bg-yellow-400 animate-pulse inline-block" />
             Smart Inventory & Order Management
@@ -181,7 +181,7 @@ export default function Hero() {
           {/* Subtext */}
           <motion.p
             variants={fadeUp}
-            className="text-gray-600 dark:text-gray-300 text-sm md:text-base leading-relaxed mb-8 max-w-lg mx-auto"
+            className="text-gray-100 dark:text-gray-300 text-sm md:text-base leading-relaxed mb-8 max-w-lg mx-auto"
           >
             Track products, handle orders, and get restock alerts —
             all from one powerful dashboard.
@@ -214,7 +214,7 @@ export default function Hero() {
             >
               <Link
                 href="/login"
-                className="flex items-center justify-center gap-2 text-gray-700 dark:text-white/80 hover:text-gray-900 dark:hover:text-white font-medium px-5 py-3.5 rounded-xl text-sm transition-all duration-300 backdrop-blur-sm hover:bg-gray-100 dark:hover:bg-white/5 w-full"
+                className="flex items-center justify-center gap-2 text-gray-100 dark:text-white/80 hover:text-gray-900 dark:hover:text-white font-medium px-5 py-3.5 rounded-xl text-sm transition-all duration-300 backdrop-blur-sm hover:bg-gray-100 dark:hover:bg-white/5 w-full"
               >
                 <motion.span animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}>▶</motion.span>
                 Demo

@@ -51,7 +51,7 @@ export default function LoginPage() {
     setTimeout(() => handleSubmit(onSubmit)(), 500)
   }
   // User Demo Login Function
-   const loginAsUser = () => {
+  const loginAsUser = () => {
     setValue('email', 'user@gmail.com')
     setValue('password', 'user01')
     toast('Logging in as User...', { icon: '👤' })
@@ -59,17 +59,17 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-700 px-4 transition-colors">
+      <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-8 transition-colors">
 
         {/* Logo */}
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold">
-            <span className="text-green-600">pick</span>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            <span className="text-green-600 dark:text-green-400">pick</span>
             <span className="text-yellow-400">&</span>
-            <span className="text-green-600">pack</span>
+            <span className="text-green-600 dark:text-green-400">pack</span>
           </h1>
-          <p className="text-gray-500 text-sm mt-1">Welcome back!</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Welcome back!</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -96,7 +96,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-9 text-gray-400 hover:text-gray-600 transition"
+              className="absolute right-3 top-9 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition"
             >
               {showPassword ? <FiEyeOff size={16} /> : <FiEye size={16} />}
             </button>
@@ -110,13 +110,13 @@ export default function LoginPage() {
 
             {/* Demo Button Group */}
             <div className="flex flex-col gap-3">
-              <p className="text-xs text-gray-400 text-center font-medium uppercase tracking-wider">Try Demo Login</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500 text-center font-medium uppercase tracking-wider">Try Demo Login</p>
               <div className="grid grid-cols-3 gap-3">
                 <Button 
                   variant="secondary" 
                   onClick={loginAsAdmin} 
                   type="button"
-                  className="bg-blue-50 border-blue-100 text-blue-700 hover:bg-blue-100 py-2 text-xs flex items-center justify-center"
+                  className="bg-blue-50 dark:bg-blue-950/60 border-blue-100 dark:border-blue-900 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900 py-2 text-xs flex items-center justify-center transition-colors"
                 >
                   <FiShield className="mr-1" /> Admin
                 </Button>
@@ -124,15 +124,15 @@ export default function LoginPage() {
                   variant="secondary" 
                   onClick={loginAsManager} 
                   type="button"
-                  className="bg-purple-50 border-purple-100 text-purple-700 hover:bg-purple-100 py-2 text-xs flex items-center justify-center"
+                  className="bg-purple-50 dark:bg-purple-950/60 border-purple-100 dark:border-purple-900 text-purple-700 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900 py-2 text-xs flex items-center justify-center transition-colors"
                 >
                   <FiBriefcase className="mr-1" /> Manager
                 </Button>
-                 <Button 
+                <Button 
                   variant="secondary" 
                   onClick={loginAsUser} 
                   type="button"
-                  className="bg-purple-50 border-purple-100 text-purple-700 hover:bg-purple-100 py-2 text-xs flex items-center justify-center"
+                  className="bg-emerald-50 dark:bg-emerald-950/60 border-emerald-100 dark:border-emerald-900 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900 py-2 text-xs flex items-center justify-center transition-colors"
                 >
                   <FiUser className="mr-1" /> User
                 </Button>
@@ -142,9 +142,9 @@ export default function LoginPage() {
 
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
           Don&apos;t have an account?{' '}
-          <Link href="/signup" className="text-green-600 font-medium hover:underline">
+          <Link href="/signup" className="text-green-600 dark:text-green-400 font-medium hover:underline">
             Sign up
           </Link>
         </p>
