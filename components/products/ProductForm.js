@@ -62,15 +62,15 @@ export default function ProductForm({ onSuccess, editData = null }) {
     }
   }
 
-  const inputClass = "w-full p-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 outline-none transition text-sm"
+  const inputClass = "w-full p-3 rounded-xl border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 outline-none transition text-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
 
   return (
-    <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5">
+    <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5 bg-white dark:bg-gray-900 p-6 rounded-2xl">
 
       {/* Product Name */}
       <div className="space-y-1.5">
-        <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-          <FiPackage className="text-green-600" size={14} /> Product Name
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+          <FiPackage className="text-green-600 dark:text-green-400" size={14} /> Product Name
         </label>
         <input
           required
@@ -84,26 +84,28 @@ export default function ProductForm({ onSuccess, editData = null }) {
 
       {/* Category */}
       <div className="space-y-1.5">
-        <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-          <FiLayers className="text-green-600" size={14} /> Category
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+          <FiLayers className="text-green-600 dark:text-green-400" size={14} /> Category
         </label>
         <select
           required
-          className={`${inputClass} bg-white`}
+          className={inputClass}
           value={formData.category}
           onChange={(e) => setFormData({ ...formData, category: e.target.value })}
         >
-          <option value="">Select Category</option>
+          <option value="" className="bg-white dark:bg-gray-900 text-gray-500">Select Category</option>
           {categories.map((cat) => (
-            <option key={cat._id} value={cat._id}>{cat.name}</option>
+            <option key={cat._id} value={cat._id} className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+              {cat.name}
+            </option>
           ))}
         </select>
       </div>
 
       {/* Price */}
       <div className="space-y-1.5">
-        <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-          <FiDollarSign className="text-green-600" size={14} /> Price
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+          <FiDollarSign className="text-green-600 dark:text-green-400" size={14} /> Price
         </label>
         <input
           required
@@ -117,8 +119,8 @@ export default function ProductForm({ onSuccess, editData = null }) {
 
       {/* Stock */}
       <div className="space-y-1.5">
-        <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-          <FiHash className="text-green-600" size={14} /> Stock Quantity
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+          <FiHash className="text-green-600 dark:text-green-400" size={14} /> Stock Quantity
         </label>
         <input
           required
@@ -132,8 +134,8 @@ export default function ProductForm({ onSuccess, editData = null }) {
 
       {/* Min Threshold */}
       <div className="space-y-1.5">
-        <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-          <FiAlertTriangle className="text-yellow-500" size={14} /> Low Stock Threshold
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+          <FiAlertTriangle className="text-yellow-500 dark:text-yellow-400" size={14} /> Low Stock Threshold
         </label>
         <input
           type="number"

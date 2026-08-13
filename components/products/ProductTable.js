@@ -98,21 +98,21 @@ export default function ProductTable({ canManage, refreshKey }) {
   return (
     <>
       {/* Search + Filter bar */}
-      <div className="flex flex-col sm:flex-row items-center gap-3 p-4 border-b border-gray-100">
+      <div className="flex flex-col sm:flex-row items-center gap-3 p-4 border-b border-gray-100 dark:border-gray-800 bg-white/80 dark:bg-gray-700   ">
         <div className="relative flex-1 w-full">
-          <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={15} />
+          <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 " size={15} />
           <input
             type="text"
             placeholder="Search products or category..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-xl outline-none focus:border-green-400 transition"
+            className="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:border-green-400 dark:focus:border-green-400 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 transition"
           />
         </div>
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="text-sm border border-gray-200 rounded-xl px-3 py-2 outline-none focus:border-green-400 bg-white text-gray-600 transition"
+          className="text-sm border border-gray-200 dark:border-gray-700 rounded-xl px-3 py-2 outline-none focus:border-green-400 dark:focus:border-green-400 bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300 transition"
         >
           <option value="">All Status</option>
           <option value="Active">active</option>
@@ -122,48 +122,48 @@ export default function ProductTable({ canManage, refreshKey }) {
 
       {/* Table */}
       {paginated.length === 0 ? (
-        <div className="flex flex-col items-center justify-center p-16 text-gray-400">
+        <div className="flex flex-col items-center justify-center p-16 text-gray-400 dark:text-gray-500">
           <FiAlertCircle size={36} className="mb-3" />
           <p className="text-sm">No products found.</p>
         </div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="w-full text-left">
+          <table className="w-full text-left bg-white/80 dark:bg-gray-700 ">
             <thead>
-              <tr className="bg-gray-50 border-b border-gray-100">
-                <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Product</th>
-                <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Category</th>
-                <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Price</th>
-                <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Stock</th>
-                <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Status</th>
+              <tr className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-800">
+                <th className="px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Product</th>
+                <th className="px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Category</th>
+                <th className="px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Price</th>
+                <th className="px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Stock</th>
+                <th className="px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Status</th>
                 {canManage && (
-                  <th className="px-4 py-3 text-xs font-semibold text-gray-500 uppercase text-right">Actions</th>
+                  <th className="px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase text-right">Actions</th>
                 )}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-50">
+            <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
               {paginated.map((item) => (
-                <tr key={item._id} className="hover:bg-gray-50/60 transition group">
+                <tr key={item._id} className="hover:bg-gray-50/60 dark:hover:bg-gray-800/50 transition group">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
                       <img
                         src={item.image || defaultImage}
                         alt={item.name}
-                        className="w-10 h-10 rounded-xl object-cover bg-gray-100"
+                        className="w-10 h-10 rounded-xl object-cover bg-gray-100 dark:bg-gray-800"
                       />
-                      <span className="font-medium text-gray-800 text-sm">{item.name}</span>
+                      <span className="font-medium text-gray-800 dark:text-gray-200 text-sm">{item.name}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-sm text-gray-500">{item.category?.name || 'N/A'}</td>
-                  <td className="px-4 py-3 text-sm font-semibold text-gray-800">৳{item.price}</td>
+                  <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">{item.category?.name || 'N/A'}</td>
+                  <td className="px-4 py-3 text-sm font-semibold text-gray-800 dark:text-gray-200">৳{item.price}</td>
                   <td className="px-4 py-3">
                     <span className={`text-sm font-semibold ${
-                      item.stock === 0 ? 'text-red-500' :
-                      item.stock <= item.minStockThreshold ? 'text-yellow-600' : 'text-gray-700'
+                      item.stock === 0 ? 'text-red-500 dark:text-red-400' :
+                      item.stock <= item.minStockThreshold ? 'text-yellow-600 dark:text-yellow-400' : 'text-gray-700 dark:text-gray-300'
                     }`}>
                       {item.stock}
                       {item.stock > 0 && item.stock <= item.minStockThreshold && (
-                        <span className="text-xs text-yellow-500 ml-1">(Low)</span>
+                        <span className="text-xs text-yellow-500 dark:text-yellow-400 ml-1">(Low)</span>
                       )}
                     </span>
                   </td>
@@ -177,13 +177,13 @@ export default function ProductTable({ canManage, refreshKey }) {
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => { setEditProduct(item); setEditModal(true) }}
-                          className="p-2 text-blue-500 hover:bg-blue-50 rounded-lg transition"
+                          className="p-2 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition"
                         >
                           <FiEdit2 size={15} />
                         </button>
                         <button
                           onClick={() => handleDelete(item)}
-                          className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition"
+                          className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition"
                         >
                           <FiTrash2 size={15} />
                         </button>
@@ -199,15 +199,15 @@ export default function ProductTable({ canManage, refreshKey }) {
 
       {/* Pagination — only if more than 6 products */}
       {filtered.length > ITEMS_PER_PAGE && (
-        <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100">
-          <p className="text-xs text-gray-400">
+        <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100 dark:border-gray-800">
+          <p className="text-xs text-gray-400 dark:text-gray-500">
             Showing {(page - 1) * ITEMS_PER_PAGE + 1}–{Math.min(page * ITEMS_PER_PAGE, filtered.length)} of {filtered.length}
           </p>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setPage(p => Math.max(p - 1, 1))}
               disabled={page === 1}
-              className="p-1.5 rounded-lg border border-gray-200 text-gray-500 hover:border-green-400 hover:text-green-600 disabled:opacity-40 disabled:cursor-not-allowed transition"
+              className="p-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-green-400 dark:hover:border-green-400 hover:text-green-600 dark:hover:text-green-400 disabled:opacity-40 disabled:cursor-not-allowed transition"
             >
               <FiChevronLeft size={15} />
             </button>
@@ -218,7 +218,7 @@ export default function ProductTable({ canManage, refreshKey }) {
                 className={`w-8 h-8 rounded-lg text-xs font-semibold transition ${
                   page === n
                     ? 'bg-green-500 text-white'
-                    : 'border border-gray-200 text-gray-500 hover:border-green-400 hover:text-green-600'
+                    : 'border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-green-400 dark:hover:border-green-400 hover:text-green-600 dark:hover:text-green-400'
                 }`}
               >
                 {n}
@@ -227,7 +227,7 @@ export default function ProductTable({ canManage, refreshKey }) {
             <button
               onClick={() => setPage(p => Math.min(p + 1, totalPages))}
               disabled={page === totalPages}
-              className="p-1.5 rounded-lg border border-gray-200 text-gray-500 hover:border-green-400 hover:text-green-600 disabled:opacity-40 disabled:cursor-not-allowed transition"
+              className="p-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-green-400 dark:hover:border-green-400 hover:text-green-600 dark:hover:text-green-400 disabled:opacity-40 disabled:cursor-not-allowed transition"
             >
               <FiChevronRight size={15} />
             </button>
