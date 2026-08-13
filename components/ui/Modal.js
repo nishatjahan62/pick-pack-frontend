@@ -31,21 +31,21 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' })
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: 'spring', duration: 0.4 }}
-              className={`bg-white rounded-2xl shadow-xl w-full ${sizes[size]} overflow-hidden`}
+              className={`bg-white dark:bg-gray-900 rounded-2xl shadow-xl w-full ${sizes[size]} overflow-hidden border border-transparent dark:border-gray-800`}
             >
               {/* Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-                <h2 className="text-base font-semibold text-gray-800">{title}</h2>
+              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800">
+                <h2 className="text-base font-semibold text-gray-800 dark:text-gray-100">{title}</h2>
                 <button
                   onClick={onClose}
-                  className="text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg p-1.5 transition"
+                  className="text-gray-400 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg p-1.5 transition"
                 >
                   <FiX size={18} />
                 </button>
               </div>
 
               {/* Body */}
-              <div className="px-6 py-5">
+              <div className="px-6 py-5 text-gray-900 dark:text-gray-100">
                 {children}
               </div>
             </motion.div>

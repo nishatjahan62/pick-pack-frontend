@@ -25,8 +25,8 @@ export default function Button({
   const variants = {
     primary: 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 text-white shadow-lg shadow-green-500/25',
     secondary: 'bg-gradient-to-r from-yellow-300 to-yellow-400 hover:from-yellow-200 hover:to-yellow-300 text-yellow-900 shadow-lg shadow-yellow-400/25',
-    outline: 'border border-gray-200 hover:border-green-400 text-gray-600 hover:text-green-600 bg-white',
-    ghost: 'text-gray-600 hover:text-green-600 hover:bg-green-50',
+    outline: 'border border-gray-200 dark:border-gray-700 hover:border-green-400 dark:hover:border-green-400 text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 bg-white dark:bg-gray-900',
+    ghost: 'text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/30',
     danger: 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-400 hover:to-red-500 text-white shadow-lg shadow-red-500/25',
   }
 
