@@ -32,15 +32,15 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
   }
 
   return (
-    <div className={`${collapsed ? 'w-[72px]' : 'w-64'} h-full bg-[#052e16] flex flex-col py-5 transition-all duration-300 overflow-hidden`}>
+    <div className={`${collapsed ? 'w-[72px]' : 'w-64'} h-full bg-white dark:bg-[#052e16] flex flex-col py-5 transition-all duration-300 overflow-hidden border-r border-gray-100 dark:border-green-900/30`}>
 
       {/* Logo + buttons */}
       <div className="flex items-center justify-between px-4 mb-6">
         {!collapsed && (
           <Link href="/" className="text-xl font-bold">
-            <span className="text-green-400">pick</span>
-            <span className="text-yellow-300">&</span>
-            <span className="text-green-400">pack</span>
+            <span className="text-green-600 dark:text-green-400">pick</span>
+            <span className="text-yellow-400">&</span>
+            <span className="text-green-600 dark:text-green-400">pack</span>
           </Link>
         )}
 
@@ -49,7 +49,7 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={onClose}
-            className="lg:hidden text-green-300 hover:text-white transition p-1 ml-auto"
+            className="lg:hidden text-gray-500 dark:text-green-300 hover:text-gray-900 dark:hover:text-white transition p-1 ml-auto"
           >
             <FiX size={20} />
           </motion.button>
@@ -60,7 +60,7 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={onToggleCollapse}
-            className="hidden lg:flex items-center justify-center w-7 h-7 rounded-lg text-green-300 hover:text-white hover:bg-green-800/40 transition ml-auto"
+            className="hidden lg:flex items-center justify-center w-7 h-7 rounded-lg text-gray-500 dark:text-green-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-green-800/40 transition ml-auto"
           >
             {collapsed ? <FiChevronRight size={16} /> : <FiChevronLeft size={16} />}
           </motion.button>
@@ -69,13 +69,13 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
 
       {/* User info */}
       {user && !collapsed && (
-        <div className="flex items-center gap-3 mx-3 px-3 py-3 mb-4 bg-green-900/30 rounded-xl border border-green-800/30">
+        <div className="flex items-center gap-3 mx-3 px-3 py-3 mb-4 bg-gray-50 dark:bg-green-900/30 rounded-xl border border-gray-100 dark:border-green-800/30">
           <div className="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-xs flex-shrink-0">
             {user.name?.charAt(0).toUpperCase()}
           </div>
           <div className="overflow-hidden">
-            <p className="text-white text-sm font-medium truncate">{user.name}</p>
-            <p className="text-green-400 text-xs capitalize">{user.role}</p>
+            <p className="text-gray-900 dark:text-white text-sm font-medium truncate">{user.name}</p>
+            <p className="text-green-600 dark:text-green-400 text-xs capitalize">{user.role}</p>
           </div>
         </div>
       )}
@@ -102,7 +102,7 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
               className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
                 isActive
                   ? 'bg-green-500 text-white shadow-lg shadow-green-500/20'
-                  : 'text-green-200 hover:bg-green-800/40 hover:text-white'
+                  : 'text-gray-600 dark:text-green-200 hover:bg-gray-100 dark:hover:bg-green-800/40 hover:text-gray-900 dark:hover:text-white'
               } ${collapsed ? 'justify-center' : ''}`}
             >
               <Icon size={18} className="flex-shrink-0" />
@@ -125,7 +125,7 @@ export default function Sidebar({ onClose, collapsed = false, onToggleCollapse }
         <button
           onClick={handleLogout}
           title={collapsed ? 'Logout' : undefined}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-green-300 hover:bg-red-500/20 hover:text-red-300 transition-all ${collapsed ? 'justify-center' : ''}`}
+          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-600 dark:text-green-300 hover:bg-red-50 dark:hover:bg-red-500/20 hover:text-red-500 dark:hover:text-red-300 transition-all ${collapsed ? 'justify-center' : ''}`}
         >
           <FiLogOut size={18} className="flex-shrink-0" />
           {!collapsed && <span>Logout</span>}
