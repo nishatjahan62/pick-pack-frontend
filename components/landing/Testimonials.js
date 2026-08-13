@@ -7,7 +7,7 @@ const testimonials = [
     name: 'Rafiul Islam',
     role: 'Shop Owner, Dhaka',
     avatar: 'R',
-    color: 'bg-green-100 text-green-700',
+    color: 'bg-green-100 dark:bg-green-950/60 text-green-700 dark:text-green-400',
     rating: 5,
     comment:
       'pick&pack has completely changed how I manage my inventory. Stock alerts save me every week!',
@@ -16,7 +16,7 @@ const testimonials = [
     name: 'Nusrat Jahan',
     role: 'Inventory Manager, Chittagong',
     avatar: 'N',
-    color: 'bg-yellow-100 text-yellow-700',
+    color: 'bg-yellow-100 dark:bg-yellow-950/60 text-yellow-700 dark:text-yellow-400',
     rating: 5,
     comment:
       'The order management is super clean. Auto stock deduction means I never oversell anymore.',
@@ -25,7 +25,7 @@ const testimonials = [
     name: 'Tanvir Ahmed',
     role: 'E-commerce Seller, Sylhet',
     avatar: 'T',
-    color: 'bg-green-100 text-green-700',
+    color: 'bg-green-100 dark:bg-green-950/60 text-green-700 dark:text-green-400',
     rating: 5,
     comment:
       'Dashboard gives me everything at a glance. Revenue, orders, low stock — all in one place.',
@@ -34,19 +34,19 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-20 px-6 bg-white">
+    <section className="py-20 px-6 bg-white dark:bg-gray-800 transition-colors">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
         <div className="text-center mb-14">
-          <div className="inline-block bg-green-100 text-green-700 text-xs font-medium px-3 py-1.5 rounded-full mb-4">
+          <div className="inline-block bg-green-100 dark:bg-green-950/60 text-green-700 dark:text-green-400 text-xs font-medium px-3 py-1.5 rounded-full mb-4">
             What people say
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             Loved by{' '}
-            <span className="text-green-500">inventory managers</span>
+            <span className="text-green-500 dark:text-green-400">inventory managers</span>
           </h2>
-          <p className="text-gray-500 text-sm max-w-md mx-auto">
+          <p className="text-gray-500 dark:text-gray-400 text-sm max-w-md mx-auto">
             Real feedback from people who use pick&pack every day.
           </p>
         </div>
@@ -60,7 +60,7 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.15 }}
-              className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:border-green-200 hover:shadow-md transition-all duration-300"
+              className="bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:border-green-200 dark:hover:border-green-800 hover:shadow-md transition-all duration-300"
             >
               {/* Stars */}
               <div className="flex items-center gap-1 mb-4">
@@ -70,7 +70,7 @@ export default function Testimonials() {
               </div>
 
               {/* Comment */}
-              <p className="text-gray-600 text-sm leading-relaxed mb-6">
+              <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6">
                 &ldquo;{t.comment}&rdquo;
               </p>
 
@@ -80,8 +80,8 @@ export default function Testimonials() {
                   {t.avatar}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-800">{t.name}</p>
-                  <p className="text-xs text-gray-400">{t.role}</p>
+                  <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">{t.name}</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500">{t.role}</p>
                 </div>
               </div>
             </motion.div>

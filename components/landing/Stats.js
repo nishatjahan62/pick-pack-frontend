@@ -53,14 +53,14 @@ export default function Stats() {
   }, [])
 
   return (
-    <section className="py-16 px-6 bg-white">
+    <section className="py-16 px-6 bg-white dark:bg-gray-800 transition-colors">
       <div className="max-w-4xl mx-auto">
 
         <div className="text-center mb-10">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-           Our system, <span className="text-green-500">your growth.</span>
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">
+            Our system, <span className="text-green-500 dark:text-green-400">your growth.</span>
           </h2>
-          <p className="text-gray-500 text-sm mt-2">Live numbers from our system</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-2">Live numbers from our system</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -73,23 +73,23 @@ export default function Stats() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15 }}
-                className="flex flex-col items-center bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:border-green-200 hover:shadow-md transition-all duration-300 group"
+                className="flex flex-col items-center bg-gray-50 dark:bg-gray-900 rounded-2xl p-8 border border-gray-100 dark:border-gray-800 hover:border-green-200 dark:hover:border-green-800 hover:shadow-md transition-all duration-300 group"
               >
-                <div className="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 bg-green-100 dark:bg-green-950/60 text-green-600 dark:text-green-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Icon size={22} />
                 </div>
 
-                <div className="text-4xl font-bold text-gray-900 mb-1">
+                <div className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-1">
                   {loading ? (
-                    <span className="text-gray-300 animate-pulse">--</span>
+                    <span className="text-gray-300 dark:text-gray-700 animate-pulse">--</span>
                   ) : (
                     <CountUp target={stats?.[key] || 0} />
                   )}
                 </div>
 
-                <div className="text-sm text-gray-500 font-medium">{labels[i]}</div>
+                <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">{labels[i]}</div>
 
-                <div className="mt-3 text-xs text-green-600 bg-green-50 px-3 py-1 rounded-full">
+                <div className="mt-3 text-xs text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-950/40 px-3 py-1 rounded-full border border-green-200/50 dark:border-green-900/40">
                   Live data
                 </div>
               </motion.div>

@@ -43,7 +43,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-gray-50 dark:bg-gray-950 border-t border-[#d4e8c2] dark:border-gray-800 pt-12 pb-6 px-6 transition-colors">
+    <footer className="bg-gray-50 dark:bg-gray-900 border-t border-[#d4e8c2] dark:border-gray-800 pt-12 pb-6 px-6 transition-colors">
       <div className="w-full px-6 md:px-16 lg:px-24 mx-auto">
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
