@@ -41,7 +41,8 @@ export default function CategoryTable({ canManage, refreshKey }) {
       cancelButtonColor: '#6b7280',
       confirmButtonText: 'Yes, delete!',
       cancelButtonText: 'Cancel',
-      borderRadius: '16px',
+      background: document.documentElement.classList.contains('dark') ? '#1f2937' : '#fff',
+      color: document.documentElement.classList.contains('dark') ? '#f3f4f6' : '#111827',
     })
 
     if (result.isConfirmed) {
@@ -69,7 +70,7 @@ export default function CategoryTable({ canManage, refreshKey }) {
   )
 
   if (categories.length === 0) return (
-    <div className="flex flex-col items-center justify-center p-16 text-gray-400">
+    <div className="flex flex-col items-center justify-center p-16 text-gray-400 dark:text-gray-500">
       <FiAlertCircle size={40} className="mb-3" />
       <p className="text-sm">No categories found. Start by adding one!</p>
     </div>
@@ -80,30 +81,30 @@ export default function CategoryTable({ canManage, refreshKey }) {
       <div className="overflow-x-auto">
         <table className="w-full text-left">
           <thead>
-            <tr className="bg-gray-50 border-b border-gray-100">
-              <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">Category Name</th>
-              <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">Description</th>
-              <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">Created At</th>
+            <tr className="bg-gray-50 dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
+              <th className="px-6 py-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Category Name</th>
+              <th className="px-6 py-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Description</th>
+              <th className="px-6 py-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Created At</th>
               {canManage && (
-                <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wide text-right">Actions</th>
+                <th className="px-6 py-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide text-right">Actions</th>
               )}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-50">
+          <tbody className="divide-y divide-gray-50 dark:divide-gray-800/60">
             {categories.map((item) => (
-              <tr key={item._id} className="hover:bg-gray-50/60 transition">
+              <tr key={item._id} className="hover:bg-gray-50/60 dark:hover:bg-gray-900/50 transition">
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-green-100 text-green-600 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-lg bg-green-100 dark:bg-green-950/60 text-green-600 dark:text-green-400 flex items-center justify-center">
                       <FiLayers size={14} />
                     </div>
-                    <span className="font-medium text-gray-800 text-sm">{item.name}</span>
+                    <span className="font-medium text-gray-800 dark:text-gray-200 text-sm">{item.name}</span>
                   </div>
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">
+                <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400 max-w-xs truncate">
                   {item.description || '---'}
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-400">
+                <td className="px-6 py-4 text-sm text-gray-400 dark:text-gray-500">
                   {new Date(item.createdAt).toLocaleDateString()}
                 </td>
                 {canManage && (
@@ -111,13 +112,13 @@ export default function CategoryTable({ canManage, refreshKey }) {
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => { setEditCategory(item); setEditModal(true) }}
-                        className="p-2 text-blue-500 hover:bg-blue-50 rounded-lg transition"
+                        className="p-2 text-blue-500 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/50 rounded-lg transition"
                       >
                         <FiEdit2 size={15} />
                       </button>
                       <button
                         onClick={() => handleDelete(item)}
-                        className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition"
+                        className="p-2 text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/50 rounded-lg transition"
                       >
                         <FiTrash2 size={15} />
                       </button>

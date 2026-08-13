@@ -42,14 +42,14 @@ export default function CategoryForm({ onSuccess, editData = null }) {
     }
   }
 
-  const inputClass = "w-full p-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 outline-none transition text-sm"
+  const inputClass = "w-full p-3 rounded-xl border border-gray-200 dark:border-gray-900 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 outline-none transition text-sm"
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {/* Category Name */}
       <div className="space-y-1.5">
-        <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-          <FiTag className="text-green-600" size={14} /> Category Name
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+          <FiTag className="text-green-600 dark:text-green-400" size={14} /> Category Name
         </label>
         <input
           required
@@ -63,8 +63,8 @@ export default function CategoryForm({ onSuccess, editData = null }) {
 
       {/* Description */}
       <div className="space-y-1.5">
-        <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-          <FiFileText className="text-green-600" size={14} /> Description (Optional)
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+          <FiFileText className="text-green-600 dark:text-green-400" size={14} /> Description (Optional)
         </label>
         <textarea
           rows="3"
