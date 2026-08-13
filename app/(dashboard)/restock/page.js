@@ -12,7 +12,7 @@ export default function RestockPage() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="p-6 md:p-10 min-h-screen bg-gray-50/30"
+      className="p-6 md:p-10 min-h-screen bg-gray-50/30 dark:bg-gray-700 transition-colors"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header Section (Synced with Category/Orders) */}
@@ -20,14 +20,14 @@ export default function RestockPage() {
           <motion.div 
             initial={{ y: -20 }}
             animate={{ y: 0 }}
-            className="p-3 bg-red-100 rounded-2xl mb-4"
+            className="p-3 bg-red-100 dark:bg-red-950/60 rounded-2xl mb-4 border border-red-200/50 dark:border-red-900"
           >
-            <FiPackage size={28} className="text-red-600" />
+            <FiPackage size={28} className="text-red-600 dark:text-red-400" />
           </motion.div>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800 tracking-tight">
-            Restock <span className="text-red-600">Queue</span>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-gray-100 tracking-tight">
+            Restock <span className="text-red-600 dark:text-red-400">Queue</span>
           </h1>
-          <p className="text-gray-500 text-sm mt-2 max-w-md">
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-2 max-w-md">
             Manage your inventory levels. Products listed here are below their minimum stock threshold and require immediate attention.
           </p>
         </div>
@@ -36,7 +36,7 @@ export default function RestockPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/40 border border-gray-100 overflow-hidden"
+          className="bg-white dark:bg-gray-900 rounded-[2.5rem] shadow-xl shadow-gray-200/40 dark:shadow-none border border-gray-100 dark:border-gray-800 overflow-hidden transition-colors"
         >
           <RestockTable 
             refreshKey={refreshKey} 

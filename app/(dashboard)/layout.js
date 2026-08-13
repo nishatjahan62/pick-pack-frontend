@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   return (
-    <div className="flex h-screen bg-[#F8FAFC] overflow-hidden">
+    <div className="flex h-screen bg-[#F8FAFC] dark:bg-gray-700 overflow-hidden transition-colors">
 
       {/* Mobile overlay */}
       <AnimatePresence>
@@ -56,16 +56,16 @@ export default function DashboardLayout({ children }) {
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
 
       {/* Mobile — top-left floating button */}
-<motion.button
-  whileTap={{ scale: 0.85 }}
-  onClick={() => setSidebarOpen(true)}
-  className="lg:hidden fixed top-4 mt-10 left-4 z-50 p-2.5 rounded-xl bg-white shadow-md border border-gray-100 text-gray-500 hover:text-green-600 transition"
->
-  <FiMenu size={20} />
-</motion.button>
+      <motion.button
+        whileTap={{ scale: 0.85 }}
+        onClick={() => setSidebarOpen(true)}
+        className="lg:hidden fixed top-4 mt-10 left-4 z-50 p-2.5 rounded-xl bg-white dark:bg-gray-900 shadow-md border border-gray-100 dark:border-gray-800 text-gray-500 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition"
+      >
+        <FiMenu size={20} />
+      </motion.button>
 
         <main className="flex-1 overflow-y-auto">
-          <div className="max-w-[1400px] mx-auto ">
+          <div className="max-w-[1400px] mx-auto">
             {children}
           </div>
         </main>

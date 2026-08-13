@@ -27,13 +27,13 @@ export default function DashboardPage() {
   }, [])
 
   if (loading) return (
-    <div className="flex h-[70vh] justify-center items-center">
+    <div className="flex h-[70vh] justify-center items-center bg-gray-50/30 dark:bg-gray-950 transition-colors">
       <Loader size="lg" />
     </div>
   )
 
   return (
-    <div className="p-2 lg:p-4">
+    <div className="p-2 lg:p-4 min-h-screen bg-gray-50/30 dark:bg-gray-950 transition-colors">
       {data?.stats ? (
         data.type === 'admin' ? (
           <AdminDashboard
@@ -41,16 +41,18 @@ export default function DashboardPage() {
             recentProducts={data.recentProducts || []}
             recentActivity={data.recentActivity || []}
             revenue={data.revenue} // এটা নিশ্চিত করুন
-          logs={data.logs}       // এটা নিশ্চিত করুন
+            logs={data.logs}       // এটা নিশ্চিত করুন
           />
         ) : (
-          <UserDashboard stats={data.stats} 
-  user={user} 
-  logs={data.logs} 
-  chartData={data.chartData} />
+          <UserDashboard 
+            stats={data.stats} 
+            user={user} 
+            logs={data.logs} 
+            chartData={data.chartData} 
+          />
         )
       ) : (
-        <p className="text-center text-gray-500 py-10">No dashboard data found</p>
+        <p className="text-center text-gray-500 dark:text-gray-400 py-10">No dashboard data found</p>
       )}
     </div>
   )

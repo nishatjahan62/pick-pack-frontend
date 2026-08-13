@@ -37,7 +37,7 @@ export default function ProductsPage() {
           <h1 className="text-3xl md:text-4xl font-black text-green-600 dark:text-green-400 uppercase tracking-wider">
             Inventory Assets
           </h1>
-          <p className="text-gray-400 dark:text-gray-500 mt-2 max-w-lg text-sm">
+          <p className="text-gray-400 dark:text-gray-300 mt-2 max-w-lg text-sm">
             Detailed overview of your stock levels, pricing, and product status in real-time.
           </p>
 

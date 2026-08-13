@@ -7,7 +7,7 @@ import OrderForm from '@/components/orders/OrderForm'
 import Modal from '@/components/ui/Modal'
 import Button from '@/components/ui/Button'
 import { FiShoppingCart, FiPlus } from 'react-icons/fi'
-import { useAuth } from '@/context/AuthContext' // ১. AuthContext ইম্পোর্ট করুন
+import { useAuth } from '@/context/AuthContext'
 
 const filters = ['', 'Pending', 'Confirmed', 'Shipped', 'Delivered', 'Cancelled']
 const filterLabels = {
@@ -20,8 +20,8 @@ const filterLabels = {
 }
 
 export default function OrdersPage() {
-  const { user } = useAuth() // ২. ইউজার ডাটা নিন
-  const isAdmin = user?.role === 'admin' || user?.role === 'manager' // ৩. রোল চেক করুন
+  const { user } = useAuth()
+  const isAdmin = user?.role === 'admin' || user?.role === 'manager'
 
   const [addModal, setAddModal] = useState(false)
   const [refreshKey, setRefreshKey] = useState(0)
@@ -32,7 +32,7 @@ export default function OrdersPage() {
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
-      className="p-6 md:p-10 min-h-screen bg-gray-50/30"
+      className="p-6 md:p-10 min-h-screen bg-gray-50/30 dark:bg-gray-700 transition-colors"
     >
       <div className="max-w-7xl mx-auto">
         
@@ -40,18 +40,16 @@ export default function OrdersPage() {
           <motion.div 
             initial={{ y: -20 }}
             animate={{ y: 0 }}
-            className="p-3 bg-green-100 rounded-2xl mb-4"
+            className="p-3 bg-green-100 dark:bg-green-950/60 rounded-2xl mb-4"
           >
-            <FiShoppingCart size={28} className="text-green-600" />
+            <FiShoppingCart size={28} className="text-green-600 dark:text-green-400" />
           </motion.div>
 
-          {/* ৪. কন্ডিশনাল টাইটেল */}
-          <h1 className="text-3xl md:text-4xl font-extrabold text-green-600 tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-green-600 dark:text-green-400 tracking-tight">
             {isAdmin ? 'Customer Orders' : 'My Orders'}
           </h1>
 
-          {/* ৫. কন্ডিশনাল সাব-টেক্সট */}
-          <p className="text-gray-500 text-sm mt-2 max-w-md">
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-2 max-w-md">
             {isAdmin 
               ? 'Track and manage your sales pipeline and customer order fulfillment effectively.' 
               : 'View your order history and track the status of your current purchases.'}
@@ -72,7 +70,7 @@ export default function OrdersPage() {
               className={`px-4 py-1.5 rounded-full text-xs font-semibold transition ${
                 statusFilter === f
                   ? 'bg-green-500 text-white shadow-sm'
-                  : 'bg-white text-gray-500 border border-gray-200 hover:border-green-300 hover:text-green-600'
+                  : 'bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-800 hover:border-green-300 dark:hover:border-green-700 hover:text-green-600 dark:hover:text-green-400'
               }`}
             >
               {filterLabels[f]}
@@ -85,7 +83,7 @@ export default function OrdersPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden"
+          className="bg-white dark:bg-gray-900 rounded-[2.5rem] shadow-xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-800 overflow-hidden transition-colors"
         >
           <OrderTable refreshKey={refreshKey} statusFilter={statusFilter} />
         </motion.div>
@@ -95,7 +93,7 @@ export default function OrdersPage() {
             whileHover={{ scale: 1.05 }} 
             whileTap={{ scale: 0.95 }}
           >
-            <Button onClick={() => setAddModal(true)} className="rounded-full px-8 shadow-lg shadow-green-100">
+            <Button onClick={() => setAddModal(true)} className="rounded-full px-8 shadow-lg shadow-green-100 dark:shadow-none">
               <FiPlus size={18} className="mr-2" /> Place New Order
             </Button>
           </motion.div>
