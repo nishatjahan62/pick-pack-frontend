@@ -22,8 +22,10 @@ const inter = Inter({
 export const metadata = {
   title: 'Pick Pack — Inventory System',
   description: 'Smart Inventory & Order Management',
+  icons: {
+    icon: '/public/pick&pack.png', 
+  },
 }
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
