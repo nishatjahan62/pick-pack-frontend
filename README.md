@@ -74,6 +74,13 @@
   - `Product "Headphone" added to Restock Queue`
   - `Order #1023 marked as Shipped`
 
+🌗 Theme Support
+Light & Dark mode toggle
+Persists user preference (saved in localStorage)
+Applies across all pages (auth, dashboard, tables, forms)
+Smooth transition between themes 
+
+
 ### 🎁 Bonus Features
 - Search & filter products and orders
 - Pagination for large datasets
