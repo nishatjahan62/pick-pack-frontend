@@ -28,8 +28,8 @@ const leftCards = [
   },
   {
     delay: 1.0,
-    valueColor: 'text-blue-600 dark:text-blue-400',
-    barColor: 'from-blue-500 to-cyan-400',
+    valueColor: 'text-green-600 dark:text-green-400',
+    barColor: 'from-green-500 to-green-400',
     value: '98.5%',
     label: 'Fulfillment rate',
     icon: '✅',
