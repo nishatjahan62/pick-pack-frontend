@@ -15,101 +15,70 @@ const statsConfig = [
   {
     key: 'products',
     label: 'Total Products',
+    value: 2500,
     icon: FiPackage,
     accent: 'green',
   },
   {
     key: 'orders',
     label: 'Total Orders',
+    value: 1200,
     icon: FiShoppingCart,
     accent: 'yellow',
   },
   {
     key: 'categories',
     label: 'Categories',
+    value: 50,
     icon: FiGrid,
     accent: 'green',
   },
 ]
 
-function CountUp({ target, shouldReduceMotion, active }) {
+function CountUp({ target, active, shouldReduceMotion }) {
   const [count, setCount] = useState(0)
 
   useEffect(() => {
-    if (!active) return
+    if (!active || shouldReduceMotion) return
 
-    if (shouldReduceMotion || target <= 0) return
+    let startTime = null
+    const duration = 1600
+    let animationFrame
 
-    let start = 0
-    const duration = 1400
-    const increment = target / (duration / 16)
+    const animate = (timestamp) => {
+      if (!startTime) startTime = timestamp
 
-    const timer = setInterval(() => {
-      start += increment
+      const progress = Math.min(
+        (timestamp - startTime) / duration,
+        1
+      )
 
-      if (start >= target) {
-        setCount(target)
-        clearInterval(timer)
-      } else {
-        setCount(Math.floor(start))
+      setCount(Math.floor(progress * target))
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate)
       }
-    }, 16)
+    }
 
-    return () => clearInterval(timer)
-  }, [target, shouldReduceMotion, active])
+    animationFrame = requestAnimationFrame(animate)
 
-  const displayValue =
-    !active || shouldReduceMotion || target <= 0 ? target : count
+    return () => cancelAnimationFrame(animationFrame)
+  }, [target, active, shouldReduceMotion])
+
+  const displayValue = shouldReduceMotion
+    ? target
+    : active
+      ? count
+      : 0
 
   return <>{displayValue.toLocaleString()}+</>
 }
 
 export default function Stats() {
-  const [stats, setStats] = useState(null)
-  const [loading, setLoading] = useState(true)
   const [isVisible, setIsVisible] = useState(false)
 
   const sectionRef = useRef(null)
   const shouldReduceMotion = useReducedMotion()
-
-  useEffect(() => {
-    const controller = new AbortController()
-
-    const fetchStats = async () => {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/stats`,
-          { signal: controller.signal }
-        )
-
-        if (!res.ok) throw new Error('Failed to fetch statistics')
-
-        const data = await res.json()
-
-        setStats(data.data ?? {
-          products: 0,
-          orders: 0,
-          categories: 0,
-        })
-      } catch (error) {
-        if (error.name !== 'AbortError') {
-          setStats({
-            products: 0,
-            orders: 0,
-            categories: 0,
-          })
-        }
-      } finally {
-        if (!controller.signal.aborted) {
-          setLoading(false)
-        }
-      }
-    }
-
-    fetchStats()
-
-    return () => controller.abort()
-  }, [])
 
   useEffect(() => {
     const section = sectionRef.current
@@ -137,13 +106,15 @@ export default function Stats() {
     >
       <div className="mx-auto max-w-7xl">
 
-        <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-16">
+        {/* Main Layout */}
+        <div className="grid items-stretch gap-10 lg:grid-cols-2 lg:gap-12">
 
-          {/* Left: Statistics */}
-          <div>
+          {/* Left: Content + Statistics */}
+          <div className="flex flex-col">
 
-            <div className="mb-8">
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#D9E1D9] bg-white px-4 py-2 text-xs font-bold tracking-widest text-[#237A50] dark:border-[#39483E] dark:bg-[#222D26] dark:text-[#75C99A]">
+            {/* Heading */}
+            <div className="mb-5">
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#D9E1D9] bg-white px-4 py-2 text-xs font-bold tracking-widest text-[#237A50] dark:border-[#39483E] dark:bg-[#222D26] dark:text-[#75C99A]">
                 <FiActivity size={14} />
                 PLATFORM OVERVIEW
               </div>
@@ -155,14 +126,14 @@ export default function Stats() {
                 </span>
               </h2>
 
-              <p className="mt-4 max-w-md text-sm leading-7 text-[#59675D] dark:text-[#B5C1B7] sm:text-base">
+              <p className="mt-3 max-w-md text-sm leading-6 text-[#59675D] dark:text-[#B5C1B7] sm:text-base">
                 Get a clear overview of your products, orders, and
                 categories. Everything important, all in one place.
               </p>
             </div>
 
-            {/* Cards */}
-            <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+            {/* Compact Statistics Cards */}
+            <div className="flex flex-1 flex-col justify-between gap-3">
 
               {statsConfig.map((item, index) => {
                 const Icon = item.icon
@@ -171,65 +142,64 @@ export default function Stats() {
                 return (
                   <motion.div
                     key={item.key}
-                    initial={shouldReduceMotion ? false : { opacity: 0, x: -18 }}
+                    initial={
+                      shouldReduceMotion
+                        ? false
+                        : { opacity: 0, x: -18 }
+                    }
                     animate={
                       isVisible && !shouldReduceMotion
                         ? { opacity: 1, x: 0 }
-                        : shouldReduceMotion
-                          ? undefined
-                          : {}
+                        : undefined
                     }
-                    transition={{ duration: 0.45, delay: index * 0.12 }}
-                    className={`relative overflow-hidden rounded-2xl border p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 sm:p-6 ${
+                    transition={{
+                      duration: 0.45,
+                      delay: index * 0.12,
+                    }}
+                    className={`flex min-h-[68px] items-center justify-between rounded-2xl border px-4 py-3 shadow-sm transition-all duration-300 hover:-translate-y-0.5 sm:px-5 ${
                       isYellow
                         ? 'border-[#E9DDAF] bg-gradient-to-r from-[#FFFDF4] via-[#FFF9E8] to-[#F8EECF] dark:border-[#665A35] dark:from-[#332F22] dark:via-[#302C20] dark:to-[#292719]'
                         : 'border-[#CFE2D3] bg-gradient-to-r from-[#F8FFF9] via-[#EFF8F0] to-[#DDEFE1] dark:border-[#3C5A46] dark:from-[#25352A] dark:via-[#223128] dark:to-[#1D2B23]'
                     }`}
                   >
-                    <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
 
-                      <div className="flex items-center gap-4">
-                        <div
-                          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${
-                            isYellow
-                              ? 'bg-[#EABF45]/20 text-[#98700C] dark:text-[#F0CE70]'
-                              : 'bg-[#237A50]/10 text-[#237A50] dark:text-[#75C99A]'
-                          }`}
-                        >
-                          <Icon size={22} />
-                        </div>
-
-                        <div>
-                          <p className="text-sm font-medium text-[#59675D] dark:text-[#B5C1B7]">
-                            {item.label}
-                          </p>
-
-                          <div className="mt-1 text-3xl font-bold tracking-tight text-[#17251D] dark:text-[#F1F5F0]">
-                            {loading ? (
-                              <span className="animate-pulse text-[#AAB5AC]">
-                                ---
-                              </span>
-                            ) : (
-                              <CountUp
-                                target={Number(stats?.[item.key]) || 0}
-                                active={isVisible}
-                                shouldReduceMotion={shouldReduceMotion}
-                              />
-                            )}
-                          </div>
-                        </div>
-                      </div>
-
+                      {/* Icon */}
                       <div
-                        className={`hidden h-10 w-10 shrink-0 items-center justify-center rounded-full sm:flex ${
+                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
                           isYellow
-                            ? 'bg-[#EABF45]/15 text-[#98700C] dark:text-[#F0CE70]'
+                            ? 'bg-[#EABF45]/20 text-[#98700C] dark:text-[#F0CE70]'
                             : 'bg-[#237A50]/10 text-[#237A50] dark:text-[#75C99A]'
                         }`}
                       >
-                        <FiActivity size={18} />
+                        <Icon size={19} />
                       </div>
 
+                      {/* Label + Number */}
+                      <div>
+                        <p className="text-xs font-medium text-[#59675D] dark:text-[#B5C1B7] sm:text-sm">
+                          {item.label}
+                        </p>
+
+                        <div className="mt-0.5 text-2xl font-bold tracking-tight text-[#17251D] dark:text-[#F1F5F0]">
+                          <CountUp
+                            target={item.value}
+                            active={isVisible}
+                            shouldReduceMotion={shouldReduceMotion}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Activity Icon */}
+                    <div
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
+                        isYellow
+                          ? 'bg-[#EABF45]/15 text-[#98700C] dark:text-[#F0CE70]'
+                          : 'bg-[#237A50]/10 text-[#237A50] dark:text-[#75C99A]'
+                      }`}
+                    >
+                      <FiActivity size={16} />
                     </div>
                   </motion.div>
                 )
@@ -240,31 +210,31 @@ export default function Stats() {
 
           {/* Right: Statistics Image */}
           <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.96 }}
+            initial={
+              shouldReduceMotion
+                ? false
+                : { opacity: 0, scale: 0.96 }
+            }
             animate={
               isVisible && !shouldReduceMotion
                 ? { opacity: 1, scale: 1 }
-                : shouldReduceMotion
-                  ? undefined
-                  : {}
+                : undefined
             }
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative"
+            className="relative h-full min-h-[360px]"
           >
-            <div className="relative overflow-hidden rounded-3xl border border-[#D9E1D9] bg-white p-3 shadow-[0_12px_40px_rgba(23,37,29,0.08)] dark:border-[#39483E] dark:bg-[#222D26] dark:shadow-none sm:p-5">
+            <div className="relative h-full min-h-[360px] overflow-hidden rounded-3xl border border-[#D9E1D9] bg-white p-3 shadow-[0_12px_40px_rgba(23,37,29,0.08)] dark:border-[#39483E] dark:bg-[#222D26] dark:shadow-none sm:p-5">
 
               <Image
-                src="/stat.png"
+                src="/stats.png"
                 alt="Inventory statistics and analytics graph"
-                width={900}
-                height={700}
-                priority={false}
-                className="h-auto w-full rounded-2xl object-contain"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-contain p-3 sm:p-5"
               />
 
             </div>
 
-            {/* Decorative element */}
             <div className="absolute -bottom-5 -right-5 -z-10 h-32 w-32 rounded-full bg-[#EABF45]/20 blur-2xl" />
           </motion.div>
 
